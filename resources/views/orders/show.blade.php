@@ -7,6 +7,9 @@
                 <div class="card">
                     <div class="card-header">Order #{{$orderNumber}}</div>
                     <div class="card-body">
+                        @foreach($order as $key => $value)
+                            <p>{{ $key }}: {{ var_dump($value) }}</p><br>
+                        @endforeach
                     </div>
                 </div>
             </div>
