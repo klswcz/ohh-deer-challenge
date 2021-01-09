@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrdersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,5 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// ORDERS
+Route::get('/order', [OrdersController::class, 'show'])->name('orders.show');
