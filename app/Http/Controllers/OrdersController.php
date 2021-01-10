@@ -22,6 +22,18 @@ class OrdersController extends Controller
 
         $orders = collect(json_decode($response->getBody())->orders);
 
+        foreach ($orders as $order) {
+            foreach ($order->line_items as $lineItem) {
+                $response = $client->request('GET',
+                    config('shopify.url') . '/products/' . $lineItem->product_id . '/images.json', [
+                        'auth' => [config('shopify.key'), config('shopify.password')]
+                    ]);
+
+                $lineItem->image = json_decode($response->getBody())->images[0] ?? null;
+
+            }
+        }
+
         if ($orders->isEmpty()) {
             return back()->withErrors([
                 'orderNumber' => 'Order not found'
