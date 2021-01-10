@@ -6,7 +6,7 @@
             <div class="col-10">
                 <div class="card">
                     <div class="card-header">
-                        Order #{{$orderNumber}} <a href="{{ $order->order_status_url }}" class="float-right"
+                        Order {{$order->name}} <a href="{{ $order->order_status_url }}" class="float-right"
                                                    target="_blank">Shipping status</a>
                     </div>
                     <div class="card-body row flex-wrap">
@@ -57,7 +57,7 @@
                             <span class="d-block">{{ $order->payment_details->credit_card_company }}</span>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4 mb-4">
-                            <h4>Summary</h4>
+                            <h4>Costs</h4>
                             <span class="d-block">Subtotal price: {{ $order->subtotal_price . ' ' . $order->currency}}</span>
                             <span class="d-block">Total tax: {{ $order->total_tax . ' ' . $order->currency}}</span>
                             <span class="d-block">Total price: {{ $order->total_price . ' ' . $order->currency}}</span>

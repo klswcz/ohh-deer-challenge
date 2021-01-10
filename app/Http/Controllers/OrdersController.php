@@ -10,10 +10,10 @@ class OrdersController extends Controller
     public function show(Request $request)
     {
         $request->validate([
-            'orderNumber' => 'required|string'
+            'number' => 'required|string'
         ]);
 
-        $orderNumber = $request->get('orderNumber');
+        $orderNumber = $request->get('number');
 
         $client = new Client();
         $response = $client->request('GET', config('shopify.url') . '/orders.json?name=' . $orderNumber, [
@@ -36,14 +36,12 @@ class OrdersController extends Controller
 
         if ($orders->isEmpty()) {
             return back()->withErrors([
-                'orderNumber' => 'Order not found'
+                'number' => 'Order not found'
             ])->withInput();
 
         }
 
-
         return view('orders.show', [
-            'orderNumber' => $orderNumber,
             'order' => $orders->first()
         ]);
     }

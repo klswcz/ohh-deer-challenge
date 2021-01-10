@@ -14,10 +14,10 @@
                     @endif
                         <form action="/order" method="get">
                             <div class="form-group">
-                                <label for="orderNumber">Order number</label>
-                                <input type="text" name="orderNumber" id="orderNumber" class="form-control {{ $errors->has('orderNumber') ? 'is-invalid' : '' }}" required value="{{ old('orderNumber') }}">
-                                @if($errors->has('orderNumber'))
-                                    <div class="invalid-feedback">{{ $errors->first('orderNumber') }}</div>
+                                <label for="number">Order number</label>
+                                <input type="text" name="number" id="number" class="form-control {{ $errors->has('number') ? 'is-invalid' : '' }}" required value="{{ old('number') }}">
+                                @if($errors->has('number'))
+                                    <div class="invalid-feedback">{{ $errors->first('number') }}</div>
                                 @endif
                             </div>
                             <button class="btn btn-primary">Search</button>
