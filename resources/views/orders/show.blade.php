@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-body row flex-wrap">
                         <div class="col-12 mb-4">
-                            <h4>Items:</h4>
+                            <h4>Items</h4>
                             @foreach($order->line_items as $lineItem)
                                 <div class="col-12 mb-3 pl-0">
                                     @if($lineItem->image)
@@ -20,18 +20,18 @@
                                     @endif
                                     <p class="d-inline-block">
                                         <span class="d-block">{{ $lineItem->quantity . 'x ' . $lineItem->title }}</span>
-                                        <span class="text-uppercase d-block">{{ $lineItem->variant_title }}</span>
+                                        <span class="d-block">{{ $lineItem->variant_title }}</span>
                                         <span>{{ $lineItem->grams . 'g' }}</span>
                                         <span
-                                            class="d-block d-sm-none">{{ (float) $lineItem->price > 0 ? $lineItem->price . $order->currency : 'FREE' }}</span>
+                                            class="d-block d-sm-none">{{ (float) $lineItem->price > 0 ? $lineItem->price * $lineItem->quantity .  ' ' . $order->currency : 'FREE' }}</span>
                                     </p>
-                                    <p class="d-none d-sm-inline-block float-right">{{ (float) $lineItem->price > 0 ? $lineItem->price . $order->currency : 'FREE' }}</p>
+                                    <p class="d-none d-sm-inline-block float-right">{{ (float) $lineItem->price > 0 ? $lineItem->price  * $lineItem->quantity .  ' ' .  $order->currency : 'FREE' }}</p>
                                 </div>
                             @endforeach
                         </div>
                         @isset($order->billing_address)
                         <div class="col-12 col-md-6 col-lg-4 mb-4">
-                            <h4>Billing address:</h4>
+                            <h4>Billing address</h4>
                             <span class="d-block">{{ $order->billing_address->company }}</span>
                             <span class="d-block">{{ $order->billing_address->name }}</span>
                             <span class="d-block">{{ $order->billing_address->address1 }}</span>
@@ -45,7 +45,7 @@
                         @endif
                         @isset($order->shipping_address)
                         <div class="col-12 col-md-6 col-lg-4 mb-4">
-                            <h4>Shipping address:</h4>
+                            <h4>Shipping address</h4>
                             <span class="d-block">{{ $order->shipping_address->company }}</span>
                             <span class="d-block">{{ $order->shipping_address->name }}</span>
                             <span class="d-block">{{ $order->shipping_address->address1 }}</span>
