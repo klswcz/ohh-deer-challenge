@@ -13,36 +13,43 @@ class OrdersController extends Controller
             'number' => 'required|string'
         ]);
 
-        $orderNumber = $request->get('number');
-
         $client = new Client();
-        $response = $client->request('GET', config('shopify.url') . '/orders.json?name=' . $orderNumber, [
-            'auth' => [config('shopify.key'), config('shopify.password')]
-        ]);
+        $response = $client->request(
+            'GET',
+            config('shopify.url') . '/orders.json?name=' . $request->get('number'),
+            [
+                'auth' => [
+                    config('shopify.key'),
+                    config('shopify.password')
+                ]
+            ]
+        );
 
-        $orders = collect(json_decode($response->getBody())->orders);
+        $order = collect(json_decode($response->getBody())->orders)->first();
 
-        foreach ($orders as $order) {
-            foreach ($order->line_items as $lineItem) {
-                $response = $client->request('GET',
-                    config('shopify.url') . '/products/' . $lineItem->product_id . '/images.json', [
-                        'auth' => [config('shopify.key'), config('shopify.password')]
-                    ]);
-
-                $lineItem->image = json_decode($response->getBody())->images[0] ?? null;
-
-            }
-        }
-
-        if ($orders->isEmpty()) {
+        if ($order === null) {
             return back()->withErrors([
                 'number' => 'Order not found'
             ])->withInput();
+        }
 
+        // Add images to $order object
+        foreach ($order->line_items as $lineItem) {
+            $response = $client->request(
+                'GET',
+                config('shopify.url') . '/products/' . $lineItem->product_id . '/images.json',
+                [
+                    'auth' => [
+                        config('shopify.key'),
+                        config('shopify.password')
+                    ]
+                ]
+            );
+            $lineItem->image = json_decode($response->getBody())->images[0] ?? null;
         }
 
         return view('orders.show', [
-            'order' => $orders->first()
+            'order' => $order
         ]);
     }
 
@@ -50,21 +57,32 @@ class OrdersController extends Controller
     {
 
         $client = new Client();
-        $response = $client->request('GET', config('shopify.url') . '/orders.json', [
-            'auth' => [config('shopify.key'), config('shopify.password')]
-        ]);
+        $response = $client->request(
+            'GET',
+            config('shopify.url') . '/orders.json',
+            [
+                'auth' => [
+                    config('shopify.key'),
+                    config('shopify.password')
+                ]
+            ]
+        );
 
         $orders = collect(json_decode($response->getBody())->orders);
 
+        // Add images to each order in $orders collection
         foreach ($orders as $order) {
             foreach ($order->line_items as $lineItem) {
                 $response = $client->request('GET',
-                    config('shopify.url') . '/products/' . $lineItem->product_id . '/images.json', [
-                        'auth' => [config('shopify.key'), config('shopify.password')]
-                    ]);
-
+                    config('shopify.url') . '/products/' . $lineItem->product_id . '/images.json',
+                    [
+                        'auth' => [
+                            config('shopify.key'),
+                            config('shopify.password')
+                        ]
+                    ]
+                );
                 $lineItem->image = json_decode($response->getBody())->images[0] ?? null;
-
             }
         }
 
