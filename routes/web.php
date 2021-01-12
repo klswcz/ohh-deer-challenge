@@ -27,4 +27,5 @@ Route::middleware(['auth'])->group(function () {
 
     // ORDERS
     Route::get('/order', [OrdersController::class, 'show'])->name('orders.show');
+    Route::get('/all-orders', [OrdersController::class, 'index'])->name('orders.index');
 });

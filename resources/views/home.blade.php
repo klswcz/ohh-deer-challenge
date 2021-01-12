@@ -21,6 +21,7 @@
                                 @endif
                             </div>
                             <button class="btn btn-primary">Search</button>
+                            <a href="/all-orders" class="btn btn-secondary ml-2">See all</a>
                         </form>
                 </div>
             </div>
