@@ -26,7 +26,7 @@
                    target="_blank">Shipping status</a>
             </div>
             <div class="col-12 mb-4">
-                <h4>Items</h4>
+                <h4 class="mb-4">Items</h4>
                 @foreach($order->line_items as $lineItem)
                     <div class="col-12 mb-3 pl-0">
                         @if($lineItem->image)
@@ -35,8 +35,9 @@
                         @endif
                         <p class="d-inline-block">
                             <span class="d-block">{{ $lineItem->quantity . 'x ' . $lineItem->title }}</span>
-                            <span class="d-block">{{ $lineItem->variant_title }}</span>
-                            <span>{{ $lineItem->grams . 'g' }}</span>
+                            <span class="d-block text-muted">{{ (float) $lineItem->price > 0 ? $lineItem->price .  ' ' . $order->currency : 'FREE' }}</span>
+                            <span class="d-block text-muted">{{ $lineItem->variant_title }}</span>
+                            <span class="d-block text-muted">{{ $lineItem->grams . 'g' }}</span>
                             <span
                                 class="d-block d-sm-none">{{ (float) $lineItem->price > 0 ? $lineItem->price * $lineItem->quantity .  ' ' . $order->currency : 'FREE' }}</span>
                         </p>

@@ -5,7 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Check your order status</div>
+                <div class="card-header d-flex align-items-center">
+                    <span class="mr-auto">Check your order status</span>
+                    <a href="/all-orders" class="btn btn-link ml-2">See all</a>
+                </div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -21,7 +24,6 @@
                                 @endif
                             </div>
                             <button class="btn btn-primary">Search</button>
-                            <a href="/all-orders" class="btn btn-secondary ml-2">See all</a>
                         </form>
                 </div>
             </div>
