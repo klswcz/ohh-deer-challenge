@@ -1,10 +1,18 @@
 <div class="card my-2">
-    <div class="card-header">
+    <div class="card-header d-flex align-items-center">
         @isset($collapse)
-            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{ $order->id }}"
-                    aria-expanded="true" aria-controls="collapse-{{ $order->id }}">
+            @if($order->line_items[0]->image)
+                <img src="{{$order->line_items[0]->image->src}}" alt=""
+                     class="w-10 d-none d-sm-inline-block align-top mr-3 rounded shadow-sm">
+            @endif
+
+            <span class="mr-auto">
                 Order {{$order->name}}
-            </button>
+            </span>
+                <button class="btn btn-link ml-4" data-toggle="collapse" data-target="#collapse-{{ $order->id }}"
+                        aria-expanded="true" aria-controls="collapse-{{ $order->id }}">
+                    Show / collapse
+                </button>
         @else
             <span>Order {{$order->name}}</span>
         @endif
