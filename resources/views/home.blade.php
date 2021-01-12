@@ -16,6 +16,7 @@
                         </div>
                     @endif
                         <form action="/order" method="get">
+                            @csrf
                             <div class="form-group">
                                 <label for="number">Order number</label>
                                 <input type="text" name="number" id="number" class="form-control {{ $errors->has('number') ? 'is-invalid' : '' }}" required value="{{ old('number') }}">
