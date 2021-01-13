@@ -2,7 +2,7 @@
 
 ## Setup
 
-Run `composer install` and `npm run dev`
+Run `composer install` and `npm install` then run `npm run dev`
 
 Clone the _.env.example_ file and rename it to _.env_
 
